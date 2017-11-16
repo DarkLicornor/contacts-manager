@@ -1,16 +1,16 @@
 package com.fredericboisguerin.insa;
-import Contact;
+
+import java.util.ArrayList;
+
 
 public class ContactsManager {
 
     private ArrayList<Contact> contactsList = new ArrayList<Contact>();
 
-    // public ContactsManager();
-
     public void addContact(String name, String email, String phoneNumber) throws InvalidEmailException, InvalidContactNameException {
-      if(name.equals("") || name.equals(null)) {
+      if(name == null || name.equals("")) {
         throw new InvalidContactNameException("Nom nul !");
-      } else if(email.equals("") || email.equals(null)) {
+      } else if(email != null && !email.contains("@")) {
         throw new InvalidEmailException("Email nul !");
       } else {
         Contact contact = new Contact(name, email, phoneNumber);
@@ -19,20 +19,16 @@ public class ContactsManager {
     }
 
     public void printAllContacts() {
-      for(Contact contact : this.contactsList) {
-        printContact(contact);
-      }
-    }
-
-    public void printContact(Contact contact) {
-      System.out.println(contact.getName() + ", " + contact.getEmail() + ", " + contact.getPhoneNumber());
-    }
-
-    public void searchContactByName(String name) {
-      for(Contact contact : this.contactsList) {
-        if(contact.getName() == name) {
-          printContact(contact);
+        for(int i = 0; i<this.contactsList.size(); i++) {
+            System.out.println(this.contactsList.get(i).toString());
         }
       }
+
+    public void searchContactByName(String name) {
+        for (int i = 0; i < this.contactsList.size(); i++) {
+            if (this.contactsList.get(i).getName().toUpperCase().contains(name.toUpperCase())) {
+                System.out.println(this.contactsList.get(i).toString());
+            }
+        }
     }
 }
